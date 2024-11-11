@@ -3,8 +3,8 @@ pipeline{
     stages{
         stage("Set Variables"){
             steps{
-                sh "echo SetVariable"
-                scripts{
+                echo SetVariable
+                script{
                     DOCKER_HUB_URL = 'registry.hub.docker.com'
                     DOCKER_HUB_FULL_URL = 'https://' + DOCKER_HUB_URL
                     DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub	'
