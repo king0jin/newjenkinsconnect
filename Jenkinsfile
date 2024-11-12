@@ -71,7 +71,7 @@ pipeline{
 //         }
         stage("Docker Push"){
             steps{
-                sh "docker push youngjini/jenkinsconnect"
+                sh "docker push youngjini/jenkinsconnect:latest"
             }
         }
     }
