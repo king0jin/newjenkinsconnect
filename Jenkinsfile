@@ -62,9 +62,37 @@ pipeline{
               sh "docker build -t youngjini/jenkinsconnect ."
            }
         }
+        stage('Docker Login') {
+           steps {
+               script {
+                   // Docker Hub에 로그인
+                   withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                       sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
+                       }
+                   }
+               }
+           }
+        }
         stage("Docker Push"){
             steps{
                 sh "docker push youngjini/jenkinsconnect:latest"
+            }
+        }
+        stage("Deploy to staging"){
+            steps{
+                sh "docker run -d --rm -p 8090:8080 --name jenkinsconnect youngjini/jenkinsconnect:latest"
+            }
+        }
+        stage("Acceptance test"){
+            steps{
+                sleep 30 //docker run이 확실히 실행될 때까지 기다림
+                sh "docker logs jenkinsconnect"
+                sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
+            }
+        }
+        post{
+            always{
+                sh "docker stop calcForStaging"
             }
         }
     }
