@@ -61,7 +61,11 @@ pipeline{
               sh "docker build -t youngjini/jenkinsconnect ."
            }
         }
-
+        stage('docker hub login'){
+          steps{
+              sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          }
+        }
         stage("Docker Push"){
             steps{
                 sh "docker push youngjini/jenkinsconnect:latest"
@@ -82,7 +86,7 @@ pipeline{
     }
     post{
         always{
-            sh "docker stop calcForStaging"
+            sh "docker stop jenkinsconnect"
         }
     }
 }
