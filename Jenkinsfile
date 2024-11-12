@@ -59,7 +59,7 @@ pipeline{
         }
         stage("Docker Build"){
            steps{
-              sh "docker build -t youngjini/jenkinsconnect:0.0.1 ."
+              sh "docker build -t youngjini/jenkinsconnect ."
            }
         }
 //         stage("Docker Login"){
@@ -71,7 +71,7 @@ pipeline{
 //         }
         stage("Docker Push"){
             steps{
-                sh "docker push youngjini/jenkinsconnect:latest"
+                sh "docker push youngjini/jenkinsconnect:0.0.2"
             }
         }
     }
