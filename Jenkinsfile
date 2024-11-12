@@ -62,13 +62,13 @@ pipeline{
               sh "docker build -t youngjini/jenkinsconnect ."
            }
         }
-//         stage("Docker Login"){
-//             steps {
-//                 script {
-//                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-//                 }
-//             }
-//         }
+        stage("Docker Login"){
+            steps {
+                script {
+                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                }
+            }
+        }
         stage("Docker Push"){
             steps{
                 sh "docker push youngjini/jenkinsconnect:0.0.2"
