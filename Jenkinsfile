@@ -59,14 +59,16 @@ pipeline{
         }
         stage("Docker Build"){
            steps{
-              sh "docker build -t youngjini/jenkinsconnect:0.1.2 ."
+              sh "docker build -t youngjini/jenkinsconnect:latest ."
            }
         }
-
         stage("Docker Login"){
             steps {
-                echo 'Docker Login'
-                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                script {
+                    withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                                            sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                    }
+                }
             }
         }
     }
