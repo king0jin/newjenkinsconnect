@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment{
+        DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub'
+    }
     stages{
         stage("Set Variables"){
             steps{
@@ -55,8 +58,14 @@ pipeline{
         }
         stage("Docker Build"){
            steps{
-              sh "docker build -t jenkinsconnect ."
+              sh "docker build -t youngjini/jenkinsconnect ."
            }
+        }
+
+        stage("Docker Login"){
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
         }
     }
 }
