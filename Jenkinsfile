@@ -4,17 +4,17 @@ pipeline{
         DOCKER_HUB_CREDENTIAL_ID = credentials('jenkinsconnectDockerHub')
     }
     stages{
-//         stage("Set Variables"){
-//             steps{
-//                 echo "SetVariable"
-//                 script{
-//                     //Docker
-//                     DOCKER_HUB_URL = 'registry.hub.docker.com'
-//                     DOCKER_HUB_FULL_URL = 'https://' + DOCKER_HUB_URL
-//                     DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub'
-//                 }
-//             }
-//         }
+        stage("Set Variables"){
+            steps{
+                echo "SetVariable"
+                script{
+                    //Docker
+                    DOCKER_HUB_URL = 'registry.hub.docker.com'
+                    DOCKER_HUB_FULL_URL = 'https://' + DOCKER_HUB_URL
+                    DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub'
+                }
+            }
+        }
         stage("Permission"){
             steps{
                 sh "chmod +x ./gradlew"
@@ -62,12 +62,12 @@ pipeline{
               sh "docker build -t youngjini/jenkinsconnect:latest ."
            }
         }
-        stage("Docker Login"){
-            steps {
-                script {
-                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                }
-            }
-        }
+//         stage("Docker Login"){
+//             steps {
+//                 script {
+//                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+//                 }
+//             }
+//         }
     }
 }
