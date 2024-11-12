@@ -7,7 +7,7 @@ pipeline{
                 script{
                     DOCKER_HUB_URL = 'registry.hub.docker.com'
                     DOCKER_HUB_FULL_URL = 'https://' + DOCKER_HUB_URL
-                    DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub	'
+                    DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub'
                 }
             }
         }
