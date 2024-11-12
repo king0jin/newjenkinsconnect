@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub'
+        DOCKER_HUB_CREDENTIAL_ID = credentials('jenkinsconnectDockerHub')
     }
     stages{
         stage("Set Variables"){
