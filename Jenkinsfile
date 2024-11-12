@@ -58,7 +58,7 @@ pipeline{
         }
         stage("Docker Build"){
            steps{
-              sh "docker build -t youngjini/jenkinsconnect ."
+              sh "docker build -t youngjini/jenkinsconnect:latest ."
            }
         }
         stage('docker hub login'){
@@ -68,7 +68,7 @@ pipeline{
         }
         stage("Docker Push"){
             steps{
-                sh "docker push youngjini/jenkinsconnect:latest"
+                sh "docker push youngjini/jenkinsconnect"
             }
         }
         stage("Deploy to staging"){
@@ -78,7 +78,7 @@ pipeline{
         }
         stage("Acceptance test"){
             steps{
-                sleep 30 //docker run이 확실히 실행될 때까지 기다림
+                sleep 30
                 sh "docker logs jenkinsconnect"
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
             }
