@@ -64,11 +64,7 @@ pipeline{
         }
         stage("Docker Push"){
             steps{
-                script {
-                    docker.withRegistry(DOCKER_HUB_FULL_URL, DOCKER_HUB_CREDENTIAL_ID) {
-                        sh "docker push youngjini/jenkinsconnect:latest"
-                    }
-                }
+                sh "docker push youngjini/jenkinsconnect:latest"
             }
         }
     }
