@@ -8,6 +8,7 @@ pipeline{
             steps{
                 echo "SetVariable"
                 script{
+                    //Docker
                     DOCKER_HUB_URL = 'registry.hub.docker.com'
                     DOCKER_HUB_FULL_URL = 'https://' + DOCKER_HUB_URL
                     DOCKER_HUB_CREDENTIAL_ID = 'jenkinsconnectDockerHub'
@@ -58,13 +59,14 @@ pipeline{
         }
         stage("Docker Build"){
            steps{
-              sh "docker build -t youngjini/jenkinsconnect ."
+              sh "docker build -t youngjini/jenkinsconnect:0.1.2 ."
            }
         }
 
         stage("Docker Login"){
             steps {
-               sh """echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"""
+                echo 'Docker Login'
+                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
             }
         }
     }
